@@ -6,33 +6,29 @@ import io.circe._
 import io.circe.generic.semiauto._
 import fpa._
 
-abstract sealed class Importance(val value: String)
-case object High   extends Importance("high")
-case object Medium extends Importance("medium")
-case object Low    extends Importance("low")
+enum Importance(val underlying: String):
+  case High   extends Importance("high")
+  case Medium extends Importance("medium")
+  case Low    extends Importance("low")
 
-object Importance {
-
-  private def values: Set[Importance] =
-    Set(High, Medium, Low)
+object Importance:
 
   def unsafeFromString(value: String): Importance =
-    values.find(_.value == value).get
+    values.find(_.underlying == value).get
 
   implicit val importanceEncoder: Encoder[Importance] =
-    Encoder.encodeString.contramap[Importance](_.value)
+    Encoder.encodeString.contramap[Importance](_.underlying)
 
   implicit val importanceDecoder: Decoder[Importance] =
     Decoder.decodeString.map[Importance](Importance.unsafeFromString)
 
   implicit val importanceMeta: Meta[Importance] =
-    Meta[String].imap(Importance.unsafeFromString)(_.value)
+    Meta[String].imap(Importance.unsafeFromString)(_.underlying)
 
-}
 
 case class Contact(id: Option[Identity], description: String, importance: Importance)
 
-object Contact {
+object Contact:
 
   implicit val contactEncoder: Encoder[Contact] =
     deriveEncoder[Contact]
@@ -41,12 +37,10 @@ object Contact {
     deriveDecoder[Contact]
 
   implicit def contactEntity[F[_]](implicit F: Monad[F]): HasIdentity[F, Contact] =
-    new HasIdentity[F, Contact] {
+    new HasIdentity[F, Contact]:
 
       def id(contact: Contact): F[Option[Identity]] =
         F.pure(contact.id)
 
       def withId(contact: Contact)(id: Identity): F[Contact] =
         F.pure(contact.copy(id = Some(id)))
-    }
-}

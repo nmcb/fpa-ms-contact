@@ -1,17 +1,17 @@
 package fpa
 
-import cats.effect._
-import cats.data._
-import cats.implicits._
+import cats.effect.*
+import cats.data.*
+import cats.implicits.*
 
 import fs2.Stream
 
-import io.circe._
-import io.circe.syntax._
+import io.circe.*
+import io.circe.syntax.*
 
 import org.http4s._
 import org.http4s.circe._
-import org.http4s.dsl.Http4sDsl
+import org.http4s.dsl.*
 import org.http4s.headers._
 
 import scala.util.Try

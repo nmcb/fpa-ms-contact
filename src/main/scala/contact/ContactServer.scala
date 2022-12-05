@@ -4,20 +4,19 @@ import cats.effect.*
 import cats.implicits.*
 import fs2.*
 
-import scala.concurrent.ExecutionContext.global
-import org.http4s.server.middleware.*
 import org.http4s.implicits.*
 import org.http4s.blaze.server.*
 import org.http4s.dsl.io.*
+
 import doobie.util.*
 import doobie.hikari.*
+
 import fpa.*
-import org.http4s.server.Server
-import pureconfig.ConfigSource
-import pureconfig.error.ConfigReaderException
+
+import pureconfig.error.*
 
 
-object ContactServer extends IOApp {
+object ContactServer extends IOApp:
 
   def instantiate: IO[ExitCode] =
     resources.use(create)
@@ -36,7 +35,7 @@ object ContactServer extends IOApp {
       transactor <- Database.transactor(config.database)(ec)
     } yield Resources(transactor, config)
 
-  def create(resources: Resources): IO[ExitCode] = {
+  def create(resources: Resources): IO[ExitCode] =
     for {
       _          <- Database.initialize(resources.transactor)
       repository =  ContactRepository(resources.transactor)
@@ -47,10 +46,9 @@ object ContactServer extends IOApp {
                       .compile
                       .lastOrError
     } yield exitCode
-  }
 
   case class Resources(transactor: HikariTransactor[IO], config: Config)
 
   def run(args: List[String]): IO[ExitCode] =
     instantiate
-}
+

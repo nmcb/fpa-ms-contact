@@ -15,7 +15,6 @@ object Identity:
 
 
 trait HasIdentity[F[_], A]:
-
   def id(a: A): F[Option[Identity]]
 
   def withId(a: A)(id: Identity): F[A]

@@ -1,7 +1,6 @@
 package fpa
 
 import pureconfig.*
-import pureconfig.error.*
 import pureconfig.generic.derivation.default.*
 
 case class ServerConfig(host: String, port: Int)
