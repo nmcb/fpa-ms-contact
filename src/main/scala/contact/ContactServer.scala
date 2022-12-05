@@ -21,17 +21,17 @@ import org.http4s.server.Server
 
 object ContactServer extends IOApp {
 
-  def create(configFile: String = "application.conf"): IO[ExitCode] =
-    resources(configFile).use(instantiate)
+  def instantiate: IO[ExitCode] =
+    resources.use(create)
 
-  def resources(configFile: String): Resource[IO, Resources] =
+  def resources: Resource[IO, Resources] =
     for {
-      config     <- Config.load(configFile)
+      config     <- Config.load
       ec         <- ExecutionContexts.fixedThreadPool[IO](config.database.threadPoolSize)
       transactor <- Database.transactor(config.database)(ec)
     } yield Resources(transactor, config)
 
-  def instantiate(resources: Resources): IO[ExitCode] = {
+  def create(resources: Resources): IO[ExitCode] = {
     for {
       _          <- Database.initialize(resources.transactor)
       repository =  ContactRepository(resources.transactor)
@@ -46,5 +46,6 @@ object ContactServer extends IOApp {
 
   case class Resources(transactor: HikariTransactor[IO], config: Config)
 
-  def run(args: List[String]): IO[ExitCode] = create()
+  def run(args: List[String]): IO[ExitCode] =
+    instantiate
 }

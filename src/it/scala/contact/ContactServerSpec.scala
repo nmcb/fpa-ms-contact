@@ -28,7 +28,7 @@ class ContactServerSpec
 
 
   val server: IO[ExitCode] =
-    ContactServer.create("test.conf")
+    ContactServer.instantiate
 
   var shutdown: () => Future[Unit] =
     println("Start ContactServer..")
@@ -51,7 +51,7 @@ class ContactServerSpec
     org.http4s.blaze.client.BlazeClientBuilder[IO].resource
 
   val config: Config =
-    Config.load("test.conf").use(IO.pure).unsafeRunSync()
+    Config.load.use(IO.pure).unsafeRunSync()
 
   val endpoint: Uri =
     Uri.unsafeFromString(s"http://${config.server.host}:${config.server.port}/contacts")
@@ -99,7 +99,7 @@ class ContactServerSpec
         }"""
   }
 
-  it should "return a single contact" in {
+  it should "read a single contact" in {
       val description = "my contact 3"
       val importance  = "medium"
       val id = createContact(description, importance)
@@ -121,7 +121,7 @@ class ContactServerSpec
       client.use(_.status(GET(endpoint / id))).unsafeRunSync()    shouldBe Status.NotFound
   }
 
-  it should "return all contacts" in {
+  it should "stream all contacts" in {
     // Remove all existing contacts
     val json = client.use(_.expect[Json](endpoint)).unsafeRunSync()
     json.hcursor.as[List[Contact]].foreach(_.foreach(c =>

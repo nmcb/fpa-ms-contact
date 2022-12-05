@@ -25,7 +25,7 @@ object Config:
 
   import com.typesafe.config.ConfigFactory
 
-  def load(file: String = "application.conf"): Resource[IO, Config] =
+  def load: Resource[IO, Config] =
     val config = IO.delay(ConfigSource.default.load[Config]).flatMap {
       case Left(error)  => IO.raiseError[Config](new ConfigReaderException[Config](error))
       case Right(value) => IO.pure(value)

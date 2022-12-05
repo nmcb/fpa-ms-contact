@@ -19,5 +19,5 @@ lazy val `fpa-ms-contact` = (project in file("."))
   .settings(
     commonSettings,
     Defaults.itSettings,
-    libraryDependencies ++= platformDependencies ++ testDependencies
+    libraryDependencies ++= platformDependencies ++ serviceDependencies ++ testDependencies
   )

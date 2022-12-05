@@ -22,6 +22,10 @@ object Dependencies {
   val KindProjectorVersion = "0.13.2"
 
   val platformDependencies = Seq(
+    "com.github.pureconfig" %% "pureconfig-core"      % PureConfigVersion
+  )
+
+  val serviceDependencies = Seq(
     "org.http4s"            %% "http4s-blaze-server"  % Http4sVersion,
     "org.http4s"            %% "http4s-circe"         % Http4sVersion,
     "org.http4s"            %% "http4s-dsl"           % Http4sVersion,
@@ -30,7 +34,6 @@ object Dependencies {
     "org.tpolecat"          %% "doobie-hikari"        % DoobieVersion,
     "org.flywaydb"          %  "flyway-core"          % FlywayVersion,
     "io.circe"              %% "circe-generic"        % CirceVersion,
-    "com.github.pureconfig" %% "pureconfig-core"      % PureConfigVersion,
     "ch.qos.logback"        %  "logback-classic"      % LogbackVersion,
   )
 
