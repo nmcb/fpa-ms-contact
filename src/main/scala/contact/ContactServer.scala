@@ -1,22 +1,20 @@
 package contact
 
-import cats.effect._
-import cats.implicits._
-
-import fs2._
+import cats.effect.*
+import cats.implicits.*
+import fs2.*
 
 import scala.concurrent.ExecutionContext.global
-
-import org.http4s.server.middleware._
-import org.http4s.implicits._
-import org.http4s.blaze.server._
-import org.http4s.dsl.io._
-
-import doobie.util._
-import doobie.hikari._
-
+import org.http4s.server.middleware.*
+import org.http4s.implicits.*
+import org.http4s.blaze.server.*
+import org.http4s.dsl.io.*
+import doobie.util.*
+import doobie.hikari.*
 import fpa.*
 import org.http4s.server.Server
+import pureconfig.ConfigSource
+import pureconfig.error.ConfigReaderException
 
 
 object ContactServer extends IOApp {
@@ -24,9 +22,16 @@ object ContactServer extends IOApp {
   def instantiate: IO[ExitCode] =
     resources.use(create)
 
+  def config: Resource[IO, Config] =
+    val config = IO.delay(Prd.config[Config]).flatMap {
+      case Left(error)  => IO.raiseError[Config](new ConfigReaderException[Config](error))
+      case Right(value) => IO.pure(value)
+    }
+    Resource.eval(config)
+
   def resources: Resource[IO, Resources] =
     for {
-      config     <- Config.load
+      config     <- config
       ec         <- ExecutionContexts.fixedThreadPool[IO](config.database.threadPoolSize)
       transactor <- Database.transactor(config.database)(ec)
     } yield Resources(transactor, config)

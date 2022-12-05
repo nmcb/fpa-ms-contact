@@ -15,20 +15,3 @@ case class LoggingConfig(logHeaders: Boolean, logBody: Boolean)
 
 case class Config(server: ServerConfig, database: DatabaseConfig, logging: LoggingConfig)
   derives ConfigReader
-
-
-object Config:
-
-  import cats.*
-  import cats.implicits.*
-  import cats.effect.*
-
-  import com.typesafe.config.ConfigFactory
-
-  def load: Resource[IO, Config] =
-    val config = IO.delay(ConfigSource.default.load[Config]).flatMap {
-      case Left(error)  => IO.raiseError[Config](new ConfigReaderException[Config](error))
-      case Right(value) => IO.pure(value)
-    }
-    Resource.eval(config)
-

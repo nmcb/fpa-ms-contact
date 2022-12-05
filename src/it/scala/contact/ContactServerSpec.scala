@@ -51,7 +51,7 @@ class ContactServerSpec
     org.http4s.blaze.client.BlazeClientBuilder[IO].resource
 
   val config: Config =
-    Config.load.use(IO.pure).unsafeRunSync()
+    Loc.config.getOrElse(sys.error("unable to load config"))
 
   val endpoint: Uri =
     Uri.unsafeFromString(s"http://${config.server.host}:${config.server.port}/contacts")
