@@ -13,7 +13,8 @@ import doobie.hikari.*
 
 import fpa.*
 
-import pureconfig.error.*
+import doobie.util.*
+import doobie.hikari.HikariTransactor
 
 
 object ContactServer extends IOApp:
