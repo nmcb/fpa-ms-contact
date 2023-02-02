@@ -3,20 +3,20 @@ import sbt._
 object Dependencies {
 
   /** Language dependencies */
-  val ScalaLanguageVersion = "3.2.1"
+  val ScalaLanguageVersion = "3.2.2"
 
   /** Platform dependencies */
   val Http4sVersion        = "0.23.18"
   val DoobieVersion        = "1.0.0-RC1"
   val CirceVersion         = "0.14.3"
   val PureConfigVersion    = "0.17.2"
-  val LogbackVersion       = "1.2.10"
+  val LogbackVersion       = "1.2.11"
 
   /** Test dependencies */
   val ScalaTestVersion     = "3.2.14"
-  val H2Version            = "2.0.202"
-  val FlywayVersion        = "8.3.0"
-  val CatsEffectTestKit    = "1.4.0"
+  val H2Version            = "2.0.206"
+  val FlywayVersion        = "8.5.13"
+  val CatsEffectTestKit    = "1.5.0"
 
   /** Build dependencies */
   val KindProjectorVersion = "0.13.2"
