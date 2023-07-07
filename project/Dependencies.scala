@@ -6,15 +6,15 @@ object Dependencies {
   val ScalaLanguageVersion = "3.3.0"
 
   /** Platform dependencies */
-  val Http4sVersion        = "0.23.19"
-  val DoobieVersion        = "1.0.0-RC2"
+  val Http4sVersion        = "0.23.22"
+  val DoobieVersion        = "1.0.0-RC4"
   val CirceVersion         = "0.14.5"
   val PureConfigVersion    = "0.17.4"
-  val LogbackVersion       = "1.4.7"
+  val LogbackVersion       = "1.4.8"
 
   /** Test dependencies */
   val ScalaTestVersion     = "3.2.16"
-  val H2Version            = "2.1.214"
+  val H2Version            = "2.2.220"
   val FlywayVersion        = "9.19.1"
   val CatsEffectTestKit    = "1.5.0"
 
