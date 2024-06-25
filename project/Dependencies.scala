@@ -13,7 +13,7 @@ object Dependencies {
   val LogbackVersion       = "1.5.6"
 
   /** Test dependencies */
-  val ScalaTestVersion     = "3.2.18"
+  val ScalaTestVersion     = "3.2.19"
   val H2Version            = "2.2.224"
   val FlywayVersion        = "10.15.0"
   val CatsEffectTestKit    = "1.5.0"
