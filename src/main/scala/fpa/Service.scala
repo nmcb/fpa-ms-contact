@@ -71,19 +71,19 @@ class Service[A : Decoder : Encoder](segment: String, repository: Repository[IO,
       )
     )
 
-  private def httpOkOr404(a: A)(result: Either[_, _]): IO[Response[IO]] =
+  private def httpOkOr404(a: A)(result: Either[?,?]): IO[Response[IO]] =
     result match {
       case Left(_)  => NotFound()
       case _        => Ok(a.asJson)
     }
 
-  private def httpOkOr404(result: Either[_, A]): IO[Response[IO]] =
+  private def httpOkOr404(result: Either[?,A]): IO[Response[IO]] =
     result match {
       case Left(_)  => NotFound()
       case Right(a) => Ok(a.asJson)
     }
 
-  private def httpCreatedOr500(a: A)(result: Either[_, _]): IO[Response[IO]] =
+  private def httpCreatedOr500(a: A)(result: Either[?,?]): IO[Response[IO]] =
     result match {
       case Left(e)  =>
         InternalServerError(e.toString)
