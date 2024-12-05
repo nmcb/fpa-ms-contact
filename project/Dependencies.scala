@@ -6,7 +6,7 @@ object Dependencies {
   val ScalaLanguageVersion = "3.5.2"
 
   /** Platform dependencies */
-  val Http4sVersion        = "0.23.29"
+  val Http4sVersion        = "0.23.30"
   val DoobieVersion        = "1.0.0-RC6"
   val CirceVersion         = "0.14.10"
   val PureConfigVersion    = "0.17.8"
