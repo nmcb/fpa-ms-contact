@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   /** Language dependencies */
-  val ScalaLanguageVersion = "3.8.2"
+  val ScalaLanguageVersion = "3.8.3"
 
   /** Platform dependencies */
   val Http4sVersion        = "0.23.33"
@@ -15,7 +15,7 @@ object Dependencies {
   /** Test dependencies */
   val ScalaTestVersion     = "3.2.20"
   val H2Version            = "2.4.240"
-  val FlywayVersion        = "12.2.0"
+  val FlywayVersion        = "12.3.0"
   val CatsEffectTestKit    = "1.8.0"
 
   /** Build dependencies */
