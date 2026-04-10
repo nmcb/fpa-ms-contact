@@ -15,7 +15,7 @@ import fpa.*
 object ContactRepository:
 
   def apply(transactor: Transactor[IO]): Repository[IO, Contact] =
-    new Repository[IO, Contact]("contacts") {
+    new Repository[IO, Contact]("contacts"):
 
       def stream: Stream[IO, Contact] =
         sql"""
@@ -62,10 +62,9 @@ object ContactRepository:
         .query[Contact]
         .option
         .transact(transactor)
-        .map {
+        .map:
           case Some(contact) => Right(contact)
-          case None => Left(NotFoundError(name, id))
-        }
+          case None          => Left(NotFoundError(name, id))
 
       def delete(id: Identity): IO[Result[Unit]] =
         sql"""
@@ -95,15 +94,13 @@ object ContactRepository:
         .map(expectUpdate(contact.id))
 
       private def expectUpdate(id: Option[Identity])(rowCount: Int): Result[Unit] =
-        id match {
+        id match
           case None                      => Left(NoIdentityError(name))
           case Some(id) if rowCount == 0 => Left(UpdateError(name, id))
           case _                         => Right(())
-        }
 
       private def expectUpdate(id: Identity)(rowCount: Int): Result[Unit] =
         expectUpdate(Some(id))(rowCount)
-    }
 
   given Meta[UUID] =
     doobie.h2.implicits.UuidType
