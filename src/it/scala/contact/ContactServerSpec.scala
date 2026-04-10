@@ -34,7 +34,7 @@ class ContactServerSpec
     println("Start ContactServer..")
     server.unsafeRunCancelable()
 
-  override implicit val patienceConfig =
+  override implicit val patienceConfig: PatienceConfig =
     PatienceConfig(timeout = scaled(Span(10, Seconds)), interval = scaled(Span(1, Second)))
 
   override protected def beforeAll(): Unit =

@@ -4,9 +4,9 @@ trait StreamingRepository[F[_], A]:
   import fs2.Stream
   def stream: Stream[F, A]
 
+type Result[A] = Either[RepositoryError, A]
 
 abstract class CrudRepository[F[_], A](name: String):
-  type Result[A] = Either[RepositoryError, A]
   def create(a: A): F[Result[Unit]]
   def read(id: Identity): F[Result[A]]
   def update(a: A): F[Result[Unit]]
