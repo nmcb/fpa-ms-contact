@@ -24,14 +24,14 @@ object ContactServer extends IOApp {
   def create: IO[ExitCode] =
     resources.use(instantiate)
 
-  def resources: Resource[IO, Resources] =
+  private def resources: Resource[IO, Resources] =
     for {
       config     <- Config.load
       ec         <- ExecutionContexts.fixedThreadPool[IO](config.database.threadPoolSize)
       transactor <- Database.transactor(config.database)(using ec)
     } yield Resources(transactor, config)
 
-  def instantiate(resources: Resources): IO[ExitCode] = {
+  private def instantiate(resources: Resources): IO[ExitCode] = {
     for {
       _          <- Database.initialize(resources.transactor)
       repository =  ContactRepository(resources.transactor)
