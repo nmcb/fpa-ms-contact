@@ -2,7 +2,6 @@ package contact
 
 import java.util.UUID
 
-import cats.implicits.*
 import cats.effect.*
 
 import fs2.*
@@ -97,9 +96,9 @@ object ContactRepository:
 
       private def expectUpdate(id: Option[Identity])(rowCount: Int): Result[Unit] =
         id match {
-          case None                        => Left(NoIdentityError(name))
-          case Some(id) if (rowCount == 0) => Left(UpdateError(name, id))
-          case _                           => Right(())
+          case None                      => Left(NoIdentityError(name))
+          case Some(id) if rowCount == 0 => Left(UpdateError(name, id))
+          case _                         => Right(())
         }
 
       private def expectUpdate(id: Identity)(rowCount: Int): Result[Unit] =
