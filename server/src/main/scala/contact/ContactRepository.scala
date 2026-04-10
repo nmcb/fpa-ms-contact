@@ -105,5 +105,5 @@ object ContactRepository:
         expectUpdate(Some(id))(rowCount)
     }
 
-  implicit val uuidMeta: Meta[UUID] =
+  given Meta[UUID] =
     doobie.h2.implicits.UuidType

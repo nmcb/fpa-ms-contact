@@ -13,39 +13,36 @@ enum Importance(val value: String):
 
 import Importance.*
 
-object Importance {
+object Importance:
 
   def unsafeFromString(value: String): Importance =
     values.find(_.value == value).get
 
-  implicit val importanceEncoder: Encoder[Importance] =
+  given Encoder[Importance] =
     Encoder.encodeString.contramap[Importance](_.value)
 
-  implicit val importanceDecoder: Decoder[Importance] =
+  given Decoder[Importance] =
     Decoder.decodeString.map[Importance](Importance.unsafeFromString)
 
-  implicit val importanceMeta: Meta[Importance] =
+  given Meta[Importance] =
     Meta[String].imap(Importance.unsafeFromString)(_.value)
 
-}
 
 case class Contact(id: Option[Identity], description: String, importance: Importance)
 
-object Contact {
+object Contact:
 
-  implicit val contactEncoder: Encoder[Contact] =
+  given Encoder[Contact] =
     deriveEncoder[Contact]
 
-  implicit val contactDecoder: Decoder[Contact] =
+  given Decoder[Contact] =
     deriveDecoder[Contact]
 
-  implicit def contactEntity[F[_]](implicit F: Monad[F]): HasIdentity[F, Contact] =
-    new HasIdentity[F, Contact] {
+  given [F[_] : Monad] => HasIdentity[F, Contact] =
+    new HasIdentity[F, Contact]:
 
       def id(contact: Contact): F[Option[Identity]] =
-        F.pure(contact.id)
+        summon[Monad[F]].pure(contact.id)
 
       def withId(contact: Contact)(id: Identity): F[Contact] =
-        F.pure(contact.copy(id = Some(id)))
-    }
-}
+        summon[Monad[F]].pure(contact.copy(id = Some(id)))

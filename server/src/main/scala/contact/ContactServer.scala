@@ -19,20 +19,21 @@ import fpa.*
 import org.http4s.server.Server
 
 
-object ContactServer extends IOApp {
+object ContactServer extends IOApp:
 
   def create: IO[ExitCode] =
     resources.use(instantiate)
 
   private def resources: Resource[IO, Resources] =
-    for {
+    for
       config     <- Config.load
       ec         <- ExecutionContexts.fixedThreadPool[IO](config.database.threadPoolSize)
       transactor <- Database.transactor(config.database)(using ec)
-    } yield Resources(transactor, config)
+    yield
+      Resources(transactor, config)
 
-  private def instantiate(resources: Resources): IO[ExitCode] = {
-    for {
+  private def instantiate(resources: Resources): IO[ExitCode] =
+    for
       _          <- Database.initialize(resources.transactor)
       repository =  ContactRepository(resources.transactor)
       exitCode   <- EmberServerBuilder
@@ -43,11 +44,10 @@ object ContactServer extends IOApp {
                       .build
                       .use(_ => IO.never)
                       .as(ExitCode.Success)
-    } yield exitCode
-  }
+    yield
+      exitCode
 
-  case class Resources(transactor: HikariTransactor[IO], config: Config)
+  private case class Resources(transactor: HikariTransactor[IO], config: Config)
 
   def run(args: List[String]): IO[ExitCode] =
     create
-}
