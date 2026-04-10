@@ -6,15 +6,14 @@ import io.circe._
 import io.circe.generic.semiauto._
 import fpa._
 
-abstract sealed class Importance(val value: String)
-case object High   extends Importance("high")
-case object Medium extends Importance("medium")
-case object Low    extends Importance("low")
+enum Importance(val value: String):
+  case High   extends Importance("high")
+  case Medium extends Importance("medium")
+  case Low    extends Importance("low")
+
+import Importance.*
 
 object Importance {
-
-  private def values: Set[Importance] =
-    Set(High, Medium, Low)
 
   def unsafeFromString(value: String): Importance =
     values.find(_.value == value).get
