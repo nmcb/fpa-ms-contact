@@ -5,7 +5,6 @@ import org.http4s.*
 import org.http4s.circe.*
 import org.http4s.client.dsl.io.*
 import org.http4s.dsl.io.*
-import org.http4s.syntax.all.*
 import org.scalatest.*
 import org.scalatest.concurrent.*
 import org.scalatest.matchers.should.*
@@ -34,7 +33,7 @@ class ContactServerSpec
     println("Start ContactServer..")
     server.unsafeRunCancelable()
 
-  override implicit val patienceConfig: PatienceConfig =
+  override implicit def patienceConfig: PatienceConfig =
     PatienceConfig(timeout = scaled(Span(10, Seconds)), interval = scaled(Span(1, Second)))
 
   override protected def beforeAll(): Unit =
