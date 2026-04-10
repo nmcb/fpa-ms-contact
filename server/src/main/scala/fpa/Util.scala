@@ -1,8 +1,8 @@
 package fpa
 
-object stream {
+import fs2.*
 
-    import fs2.Stream
+object stream {
 
     implicit class EffectOps[F[_], A](fa: F[A]) {
       def stream: Stream[F, A] = Stream.eval(fa)

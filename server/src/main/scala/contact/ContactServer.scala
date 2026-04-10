@@ -28,7 +28,7 @@ object ContactServer extends IOApp {
     for {
       config     <- Config.load
       ec         <- ExecutionContexts.fixedThreadPool[IO](config.database.threadPoolSize)
-      transactor <- Database.transactor(config.database)(ec)
+      transactor <- Database.transactor(config.database)(using ec)
     } yield Resources(transactor, config)
 
   def instantiate(resources: Resources): IO[ExitCode] = {

@@ -1,23 +1,30 @@
 import Dependencies._
 
-lazy val commonSettings = Seq(
-  name         := "fpa-ms-contact",
-  version      := "0.1.0",
-  scalaVersion := ScalaLanguageVersion
-)
-
-scalacOptions := Seq(
-  "-unchecked",
-  "-deprecation",
+ThisBuild / version        := "0.1.0"
+ThisBuild / scalaVersion   := ScalaLanguageVersion
+ThisBuild / scalacOptions ++= Seq(
+  "-encoding", "utf8",
   "-feature",
-  "-language:higherKinds",
-  "-language:implicitConversions"
+  "-language:implicitConversions",
+  "-language:existentials",
+  "-unchecked",
+  "-Werror",
+  "-deprecation"
 )
 
-lazy val `fpa-ms-contact` = (project in file("."))
-  .configs(IntegrationTest)
+lazy val server = (project in file("server"))
   .settings(
-    commonSettings,
-    Defaults.itSettings,
+    name := "server",
+    libraryDependencies ++= platformDependencies
+  )
+
+lazy val integration = (project in file("it"))
+  .dependsOn(server)
+  .settings(
+    name := "integration-tests",
+    publish / skip := true,
     libraryDependencies ++= platformDependencies ++ testDependencies
   )
+
+lazy val contact = (project in file("."))
+  .aggregate(server, integration)
