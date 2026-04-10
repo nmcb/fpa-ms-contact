@@ -49,10 +49,10 @@ class Service[A : {Decoder, Encoder}](segment: String, repository: Repository[IO
         yield response
     )
 
-  def read(id: Identity): EndPoint =
+  private def read(id: Identity): EndPoint =
     EndPoint(_ => repository.read(id).flatMap(httpOkOr404))
 
-  def delete(id: Identity): EndPoint =
+  private def delete(id: Identity): EndPoint =
     EndPoint(
       _  => repository.delete(id).flatMap:
         case Left(NotFoundError(_, _)) => NotFound()

@@ -2,7 +2,6 @@ package fpa
 
 import pureconfig.*
 import pureconfig.error.*
-import pureconfig.generic.derivation.default.*
 import com.comcast.ip4s.*
 
 implicit val hostConfigReader: ConfigReader[Host] =
@@ -26,11 +25,7 @@ case class Config(server: ServerConfig, database: DatabaseConfig, logging: Loggi
 
 object Config:
 
-  import cats.*
-  import cats.implicits.*
   import cats.effect.*
-
-  import com.typesafe.config.ConfigFactory
 
   def load: Resource[IO, Config] =
     val config = IO.delay(ConfigSource.default.load[Config]).flatMap {
