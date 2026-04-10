@@ -16,7 +16,7 @@ import org.http4s.headers._
 import scala.util.Try
 import org.http4s.HttpRoutes
 
-class Service[A : {Decoder, Encoder}](segment: String, repository: Repository[IO, A])(using E : HasIdentity[IO, A])
+class Service[A](segment: String, repository: Repository[IO, A])(using Decoder[A], Encoder[A], HasIdentity[IO, A])
   extends Http4sDsl[IO]:
 
   private type EndPoint = Kleisli[IO, Request[IO], Response[IO]]
@@ -36,7 +36,8 @@ class Service[A : {Decoder, Encoder}](segment: String, repository: Repository[IO
           entity   <- req.decodeJson[A].withGeneratedId
           result   <- repository.create(entity)
           response <- httpCreatedOr500(entity)(result)
-        yield response
+        yield
+          response
     )
 
   def update(id: Identity): EndPoint =
@@ -46,7 +47,8 @@ class Service[A : {Decoder, Encoder}](segment: String, repository: Repository[IO
           entity   <- req.decodeJson[A].withId(id)
           result   <- repository.update(entity)
           response <- httpOkOr404(entity)(result)
-        yield response
+        yield
+          response
     )
 
   private def read(id: Identity): EndPoint =
@@ -85,7 +87,7 @@ class Service[A : {Decoder, Encoder}](segment: String, repository: Repository[IO
       case Left(e)  =>
         InternalServerError(e.toString)
       case _        =>
-        E.id(a).flatMap(id => Created(a.asJson, Location(Uri.unsafeFromString(s"/$segment/${id.get}"))))
+        summon[HasIdentity[IO, A]].id(a).flatMap(id => Created(a.asJson, Location(Uri.unsafeFromString(s"/$segment/${id.get}"))))
 
 
 object IdentityVar extends PathVar(Identity.apply)

@@ -8,7 +8,7 @@ ThisBuild / scalacOptions ++= Seq(
   "-language:implicitConversions",
   "-language:existentials",
   "-unchecked",
-//  "-Werror",
+  "-Werror",
   "-deprecation"
 )
 
