@@ -6,9 +6,9 @@ import cats.effect.*
 
 import fs2.*
 
-import doobie.Meta
-import doobie.implicits.*
-import doobie.util.transactor.*
+import org.typelevel.doobie.Meta
+import org.typelevel.doobie.implicits.*
+import org.typelevel.doobie.util.transactor.*
 
 import fpa.*
 
@@ -103,4 +103,4 @@ object ContactRepository:
         expectUpdate(Some(id))(rowCount)
 
   given Meta[UUID] =
-    doobie.h2.implicits.UuidType
+    org.typelevel.doobie.h2.implicits.UuidType

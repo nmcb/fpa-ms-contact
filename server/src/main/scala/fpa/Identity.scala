@@ -1,7 +1,7 @@
 package fpa
 
 import java.util.UUID
-import cats._
+import cats.*
 
 type Identity = UUID
 
