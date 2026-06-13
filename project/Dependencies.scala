@@ -27,7 +27,7 @@ object Dependencies {
     "org.http4s"            %% "http4s-dsl"           % Http4sVersion,
     "org.typelevel"          %% "doobie-core"          % DoobieVersion,
     "org.typelevel"          %% "doobie-h2"            % DoobieVersion,
-    "org.tpolecat"          %% "doobie-hikari"        % DoobieVersion,
+    "org.typelevel"          %% "doobie-hikari"        % DoobieVersion,
     "org.flywaydb"          %  "flyway-core"          % FlywayVersion,
     "io.circe"              %% "circe-generic"        % CirceVersion,
     "com.github.pureconfig" %% "pureconfig-core"      % PureConfigVersion,
