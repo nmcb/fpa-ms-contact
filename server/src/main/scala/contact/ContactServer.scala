@@ -1,22 +1,12 @@
 package contact
 
 import cats.effect.*
-import cats.implicits.*
-
-import fs2.*
-
-import scala.concurrent.ExecutionContext.global
-
-import org.http4s.server.middleware.*
-import org.http4s.implicits.*
-import org.http4s.ember.server.*
-import org.http4s.dsl.io.*
-
-import doobie.util._
-import doobie.hikari.HikariTransactor
-
 import fpa.*
-import org.http4s.server.Server
+import fs2.*
+import org.http4s.ember.server.*
+import org.http4s.implicits.*
+import org.typelevel.doobie.hikari.HikariTransactor
+import org.typelevel.doobie.util.*
 
 
 object ContactServer extends IOApp:

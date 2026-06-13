@@ -1,20 +1,16 @@
 package fpa
 
-import cats.effect._
-import cats.data._
-
+import cats.data.*
+import cats.effect.*
 import fs2.Stream
-
-import io.circe._
-import io.circe.syntax._
-
-import org.http4s._
-import org.http4s.circe._
+import io.circe.*
+import io.circe.syntax.*
+import org.http4s.*
+import org.http4s.circe.*
 import org.http4s.dsl.Http4sDsl
-import org.http4s.headers._
+import org.http4s.headers.*
 
 import scala.util.Try
-import org.http4s.HttpRoutes
 
 class Service[A](segment: String, repository: Repository[IO, A])(using Decoder[A], Encoder[A], HasIdentity[IO, A])
   extends Http4sDsl[IO]:

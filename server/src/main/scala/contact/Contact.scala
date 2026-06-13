@@ -1,10 +1,10 @@
 package contact
 
 import cats.Monad
-import doobie._
-import io.circe._
-import io.circe.generic.semiauto._
-import fpa._
+import org.typelevel.doobie.*
+import io.circe.*
+import io.circe.generic.semiauto.*
+import fpa.*
 
 enum Importance(val value: String):
   case High   extends Importance("high")

@@ -7,7 +7,7 @@ object Dependencies {
 
   /** Platform dependencies */
   val Http4sVersion        = "0.23.34"
-  val DoobieVersion        = "1.0.0-RC12"
+  val DoobieVersion        = "1.0.0-RC13"
   val CirceVersion         = "0.14.15"
   val PureConfigVersion    = "0.17.10"
   val LogbackVersion       = "1.5.34"
@@ -25,9 +25,9 @@ object Dependencies {
     "org.http4s"            %% "http4s-ember-server"  % Http4sVersion,
     "org.http4s"            %% "http4s-circe"         % Http4sVersion,
     "org.http4s"            %% "http4s-dsl"           % Http4sVersion,
-    "org.tpolecat"          %% "doobie-core"          % DoobieVersion,
-    "org.tpolecat"          %% "doobie-h2"            % DoobieVersion,
-    "org.tpolecat"          %% "doobie-hikari"        % DoobieVersion,
+    "org.typelevel"          %% "doobie-core"          % DoobieVersion,
+    "org.typelevel"          %% "doobie-h2"            % DoobieVersion,
+    "org.typelevel"          %% "doobie-hikari"        % DoobieVersion,
     "org.flywaydb"          %  "flyway-core"          % FlywayVersion,
     "io.circe"              %% "circe-generic"        % CirceVersion,
     "com.github.pureconfig" %% "pureconfig-core"      % PureConfigVersion,

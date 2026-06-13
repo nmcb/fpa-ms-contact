@@ -1,7 +1,7 @@
 package fpa
 
-import cats.effect._
-import doobie.hikari.HikariTransactor
+import cats.effect.*
+import org.typelevel.doobie.hikari.HikariTransactor
 import org.flywaydb.core.Flyway
 import scala.concurrent.ExecutionContext
 
