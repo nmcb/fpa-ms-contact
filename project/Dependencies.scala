@@ -1,9 +1,9 @@
-import sbt._
+import sbt.*
 
-object Dependencies {
+object Dependencies:
 
   /** Language dependencies */
-  val ScalaLanguageVersion = "3.9.0"
+  val ScalaLanguageVersion = "3.10.0"
 
   /** Platform dependencies */
   val Http4sVersion        = "0.23.38"
@@ -21,24 +21,23 @@ object Dependencies {
   /** Build dependencies */
   val KindProjectorVersion = "0.13.2"
 
-  val platformDependencies = Seq(
-    "org.http4s"            %% "http4s-ember-server"  % Http4sVersion,
-    "org.http4s"            %% "http4s-circe"         % Http4sVersion,
-    "org.http4s"            %% "http4s-dsl"           % Http4sVersion,
+  val platformDependencies: Seq[ModuleID] = Seq(
+    "org.http4s"             %% "http4s-ember-server"  % Http4sVersion,
+    "org.http4s"             %% "http4s-circe"         % Http4sVersion,
+    "org.http4s"             %% "http4s-dsl"           % Http4sVersion,
     "org.typelevel"          %% "doobie-core"          % DoobieVersion,
     "org.typelevel"          %% "doobie-h2"            % DoobieVersion,
     "org.typelevel"          %% "doobie-hikari"        % DoobieVersion,
-    "org.flywaydb"          %  "flyway-core"          % FlywayVersion,
-    "io.circe"              %% "circe-generic"        % CirceVersion,
-    "com.github.pureconfig" %% "pureconfig-core"      % PureConfigVersion,
-    "ch.qos.logback"        %  "logback-classic"      % LogbackVersion,
+    "org.flywaydb"           %  "flyway-core"          % FlywayVersion,
+    "io.circe"               %% "circe-generic"        % CirceVersion,
+    "com.github.pureconfig"  %% "pureconfig-core"      % PureConfigVersion,
+    "ch.qos.logback"         %  "logback-classic"      % LogbackVersion,
   )
 
-  val testDependencies = Seq(
+  val testDependencies: Seq[ModuleID] = Seq(
     "org.scalatest"         %% "scalatest"                      % ScalaTestVersion,
     "org.http4s"            %% "http4s-ember-client"            % Http4sVersion,
     "com.h2database"        %  "h2"                             % H2Version,
     "io.circe"              %% "circe-literal"                  % CirceVersion,
     "org.typelevel"         %% "cats-effect-testing-scalatest"  % CatsEffectTestKit,
   ).map(_ % "it,test")
-}
