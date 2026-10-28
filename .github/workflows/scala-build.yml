@@ -18,10 +18,11 @@ jobs:
     - name: setup-java
       uses: actions/setup-java@v4
       with:
-        java-version: '21'
+        java-version: '25'
         distribution: 'temurin'
+        check-latest: 'true'
         cache: sbt
     - uses: sbt/setup-sbt@v1
     - name: sbt-test
       shell: bash
-      run: sbt -v +test osvScan all-projects single-report
+      run: sbt -v +test osvScan
