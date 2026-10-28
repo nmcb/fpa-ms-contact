@@ -20,6 +20,7 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
+        check-latest: 'true'
         cache: sbt
     - uses: sbt/setup-sbt@v1
     - name: sbt-test
