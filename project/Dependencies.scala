@@ -3,7 +3,7 @@ import sbt.*
 object Dependencies:
 
   /** Language dependencies */
-  val ScalaLanguageVersion = "3.10.0"
+  val ScalaLanguageVersion = "3.10.1"
 
   /** Platform dependencies */
   val Http4sVersion        = "0.23.38"
